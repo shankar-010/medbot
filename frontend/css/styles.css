@@ -1,0 +1,486 @@
+/* body {
+  transition: background-color 0.3s, color 0.3s;
+}
+body.dark-mode {
+  background-color: #343a40;
+  color: #f8f9fa;
+}
+.dark-mode .card {
+  background-color: #495057;
+  color: #f8f9fa;
+}
+.dark-mode .navbar {
+  background-color: #212529;
+}
+.navbar-brand, .nav-link {
+  color: #007bff !important;
+}
+.dark-mode .navbar-brand, .dark-mode .nav-link {
+  color: #0d6efd !important;
+}
+.alert {
+  margin-top: 10px;
+} */
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+:root {
+    /* Main Healthcare Palette */
+    --brand-blue: #007bff; /* Primary action blue, slightly brighter for impact */
+    --brand-green: #28a745; /* Success/accent green */
+    --brand-dark-blue: #0056b3; /* Darker primary for hover/active */
+    --brand-light-blue: #e0f2ff; /* Very light blue for subtle accents/backgrounds */
+    --brand-aqua: #00bcd4; /* A calming, trustworthy secondary accent */
+
+    /* General Colors (Light Mode) */
+    --background-light: #f5f9fc; /* Off-white, slightly cool background */
+    --card-background-light: #ffffff; /* Pure white for cards */
+    --text-color-primary-light: #343a40; /* Dark gray for main text */
+    --text-color-secondary-light: #6c757d; /* Lighter gray for secondary text */
+    --border-color-light: #dee2e6; /* Light gray border */
+    --shadow-color-light: rgba(0, 0, 0, 0.08);
+
+    /* General Colors (Dark Mode) */
+    --background-dark: #202b38; /* Deep charcoal blue */
+    --card-background-dark: #2a3847; /* Slightly lighter card in dark mode */
+    --text-color-primary-dark: #e0e6eb; /* Off-white for main text */
+    --text-color-secondary-dark: #aebec9; /* Lighter gray for secondary text */
+    --border-color-dark: #3a4755; /* Dark border */
+    --shadow-color-dark: rgba(0, 0, 0, 0.4);
+
+    /* Typography */
+    --font-family-heading: 'Montserrat', sans-serif;
+    --font-family-body: 'Open Sans', sans-serif;
+    --heading-font-weight: 700;
+    --body-font-size: 1rem;
+}
+
+/* Base Body Styling */
+body {
+    font-family: var(--font-family-body);
+    background-color: var(--background-light);
+    color: var(--text-color-primary-light);
+    transition: background-color 0.4s ease, color 0.4s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6; /* Improved readability */
+    overflow-x: hidden; /* Prevent horizontal scroll on subtle patterns */
+    position: relative;
+}
+
+/* Subtle Healthcare Pattern (Light Mode) */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle fill="%23e8f4fd" cx="10" cy="10" r="1.5"/></svg>'); /* Very light dots/crosses */
+    background-repeat: repeat;
+    opacity: 0.5; /* Very subtle */
+    pointer-events: none; /* Allow clicks through */
+    z-index: -1; /* Behind content */
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+    font-weight: var(--heading-font-weight);
+    color: var(--brand-blue);
+    margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+
+/* Card Styling */
+.card {
+    border: none; /* No default border */
+    border-radius: 1rem; /* More rounded */
+    box-shadow: 0 8px 20px var(--shadow-color-light); /* More pronounced shadow */
+    background-color: var(--card-background-light);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden; /* For any internal borders/patterns */
+}
+
+.card-body {
+    padding: 2.5rem; /* Generous padding */
+}
+
+/* Form Controls */
+.form-control {
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color-light);
+    padding: 0.85rem 1.15rem;
+    font-size: var(--body-font-size);
+    color: var(--text-color-primary-light);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--brand-aqua); /* Accent color on focus */
+    box-shadow: 0 0 0 0.25rem rgba(0, 188, 212, 0.25); /* Aqua glow */
+    outline: none;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text-color-secondary-light);
+    margin-bottom: 0.5rem;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--brand-blue);
+    border-color: var(--brand-blue);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1.8rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--brand-dark-blue);
+    border-color: var(--brand-dark-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 123, 255, 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.btn-info { /* For View buttons in history */
+    background-color: var(--brand-aqua);
+    border-color: var(--brand-aqua);
+    font-weight: 600;
+}
+.btn-info:hover {
+    background-color: #0097a7;
+    border-color: #0097a7;
+}
+
+.btn-danger {
+    font-weight: 600;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--card-background-light);
+    border-bottom: 1px solid var(--border-color-light);
+    padding: 1.2rem 0;
+    box-shadow: 0 3px 8px var(--shadow-color-light);
+}
+
+.navbar-brand {
+    font-family: var(--font-family-heading);
+    font-weight: var(--heading-font-weight);
+    font-size: 1.8rem;
+    color: var(--brand-blue) !important;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+}
+
+.navbar-brand img {
+    height: 35px; /* Slightly larger logo */
+    margin-right: 12px;
+}
+
+.nav-link {
+    color: var(--text-color-secondary-light) !important;
+    font-weight: 600;
+    margin-left: 1.5rem;
+    font-size: 1.05rem;
+    padding: 0.5rem 0; /* Align with nav-items */
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--brand-blue) !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; /* Position underline below text */
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--brand-blue);
+    transition: width 0.3s ease;
+    border-radius: 5px;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+/* Alerts and Messages */
+.alert {
+    margin-top: 2rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+}
+
+/* Table styling (for History page) */
+.table {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 6px 15px var(--shadow-color-light);
+    background-color: var(--card-background-light); /* Table background matches card */
+}
+
+.table thead th {
+    background-color: var(--brand-blue);
+    color: white;
+    font-family: var(--font-family-heading);
+    font-weight: 600;
+    padding: 1.2rem 1.5rem;
+    border-bottom: none;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:nth-of-type(even) {
+    background-color: var(--brand-light-blue); /* Very light blue stripe */
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Lighter blue highlight on hover */
+}
+
+.table td, .table th {
+    vertical-align: middle;
+    padding: 1rem 1.5rem;
+    border-color: var(--border-color-light);
+    font-size: 0.95rem;
+}
+
+/* List Group on Result page */
+.list-group-item {
+    background-color: transparent; /* No background, takes card bg */
+    border: none; /* No individual borders */
+    padding: 0.75rem 0; /* Spacing between items */
+    font-size: 1.05rem;
+    color: var(--text-color-primary-light);
+    display: flex;
+    align-items: flex-start;
+}
+
+.list-group-item::before {
+    content: "\f00c"; /* Font Awesome check-circle icon */
+    font-family: "Font Awesome 5 Free"; /* Ensure Font Awesome is loaded */
+    font-weight: 900; /* For solid icons */
+    color: var(--brand-green);
+    margin-right: 0.8rem;
+    margin-top: 0.2rem; /* Align icon with text top */
+    font-size: 0.9em;
+}
+
+/* Horizontal Rule (Divider) */
+hr {
+    border-top: 1px dashed var(--border-color-light); /* Dashed line for a medical record feel */
+    margin: 3rem 0;
+}
+
+/* No History/Empty State Message */
+#noHistoryMessage {
+    padding: 3rem;
+    background-color: var(--brand-light-blue);
+    border-radius: 0.75rem;
+    border: 1px dashed var(--brand-blue);
+    color: var(--text-color-secondary-light);
+}
+
+#noHistoryMessage .fas {
+    color: var(--brand-blue);
+}
+
+/* Utility classes for layout */
+.container {
+    max-width: 1000px; /* Slightly wider content area */
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+/* Footer */
+footer {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-color-secondary-light);
+    margin-top: auto;
+    border-top: 1px solid var(--border-color-light);
+    font-size: 0.9rem;
+    background-color: var(--background-light);
+}
+
+
+/* Dark Mode Specific Styles */
+body.dark-mode {
+    background-color: var(--background-dark);
+    color: var(--text-color-primary-dark);
+}
+
+body.dark-mode::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle fill="%232c3e50" cx="10" cy="10" r="1.5"/></svg>'); /* Darker dots for dark mode */
+    opacity: 0.6;
+}
+
+.dark-mode .card {
+    background-color: var(--card-background-dark);
+    color: var(--text-color-primary-dark);
+    box-shadow: 0 8px 20px var(--shadow-color-dark);
+}
+
+.dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6 {
+    color: var(--brand-aqua); /* Lighter accent color for headings */
+}
+
+.dark-mode .form-label,
+.dark-mode .text-muted {
+    color: var(--text-color-secondary-dark) !important;
+}
+
+.dark-mode .form-control {
+    background-color: #314050;
+    border-color: var(--border-color-dark);
+    color: var(--text-color-primary-dark);
+}
+
+.dark-mode .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.dark-mode .form-control:focus {
+    border-color: var(--brand-green); /* Green glow in dark mode */
+    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+}
+
+.dark-mode .btn-primary {
+    background-color: var(--brand-aqua);
+    border-color: var(--brand-aqua);
+    color: #202b38; /* Dark text on light button */
+}
+
+.dark-mode .btn-primary:hover {
+    background-color: #0097a7;
+    border-color: #0097a7;
+    box-shadow: 0 8px 15px rgba(0, 188, 212, 0.2);
+}
+
+.dark-mode .navbar {
+    background-color: var(--card-background-dark);
+    border-color: var(--border-color-dark);
+    box-shadow: 0 3px 8px var(--shadow-color-dark);
+}
+
+.dark-mode .navbar-brand {
+    color: var(--brand-aqua) !important;
+}
+
+.dark-mode .nav-link {
+    color: var(--text-color-secondary-dark) !important;
+}
+
+.dark-mode .nav-link:hover {
+    color: var(--brand-aqua) !important;
+}
+
+.dark-mode .nav-link::after {
+    background-color: var(--brand-aqua);
+}
+
+
+.dark-mode .table {
+    background-color: var(--card-background-dark);
+    color: var(--text-color-primary-dark);
+    box-shadow: 0 6px 15px var(--shadow-color-dark);
+}
+
+.dark-mode .table thead th {
+    background-color: var(--brand-dark-blue); /* Darker blue for table header */
+    color: #e0e6eb;
+}
+
+.dark-mode .table tbody tr:nth-of-type(even) {
+    background-color: #314050; /* Darker stripe */
+}
+
+.dark-mode .table tbody tr:hover {
+    background-color: #3a4755; /* Darker highlight on hover */
+}
+
+.dark-mode .table td, .dark-mode .table th {
+    border-color: var(--border-color-dark);
+}
+
+.dark-mode .list-group-item {
+    color: var(--text-color-primary-dark);
+}
+
+.dark-mode .list-group-item::before {
+    color: var(--brand-aqua); /* Aqua checkmark in dark mode */
+}
+
+.dark-mode hr {
+    border-top: 1px dashed var(--border-color-dark);
+}
+
+.dark-mode #noHistoryMessage {
+    background-color: #314050;
+    border-color: var(--border-color-dark);
+    color: var(--text-color-secondary-dark);
+}
+
+.dark-mode #noHistoryMessage .fas {
+    color: var(--brand-aqua);
+}
+
+.dark-mode footer {
+    border-top: 1px solid var(--border-color-dark);
+    background-color: var(--background-dark);
+    color: var(--text-color-secondary-dark);
+}
+
+/* General Link Styling */
+a {
+    color: var(--brand-blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--brand-dark-blue);
+    text-decoration: underline;
+}
+
+.dark-mode a {
+    color: var(--brand-aqua);
+}
+
+.dark-mode a:hover {
+    color: #00e0e0;
+}
