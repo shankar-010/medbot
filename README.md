@@ -92,17 +92,11 @@ Just open `index.html` (or deploy frontend using Netlify / GitHub Pages).
 
 ---
 
-## 🧪 Optional Enhancements
+## 🧪 Enhancements
 
 * PDF export of prescription
 * Dark mode toggle
 * Mobile responsive design
-
----
-
-## 📄 License
-
-MIT License
 
 ---
 
