@@ -14,14 +14,14 @@ MedBot Rx is a full-stack AI-based web application that allows users to input th
 * Express.js
 * PostgreSQL
 * JWT for authentication
-* Gemini/OpenAI API integration
+* Gemini API integration
 
 ### 🌐 Frontend:
 
 * HTML
 * CSS
 * Bootstrap
-* JavaScript (Vanilla)
+* JavaScript
 
 ---
 
@@ -106,6 +106,6 @@ MIT License
 
 ---
 
-## 🤖 Created By
+## 🤖 Created By Shankar Namaji
 
-Built with ❤️ as a healthcare-focused AI project to enhance accessibility and support personalized medicine using AI APIs.
+Built a healthcare-focused AI project to enhance accessibility and support personalized medicine using AI APIs.
