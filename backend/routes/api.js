@@ -37,11 +37,25 @@
 // module.exports = { register, login };
 
 
+// const express = require('express');
+// const router = express.Router();
+// const authController = require('../controllers/authController');
+// router.post('/diagnose', authController.diagnose); // Add this line
+// router.post('/register', authController.register);
+// router.post('/login', authController.login);
+
+// module.exports = router;
+
+
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
-router.post('/diagnose', authController.diagnose); // Add this line
+const prescriptionController = require('../controllers/prescriptionController');
+
 router.post('/register', authController.register);
 router.post('/login', authController.login);
+router.post('/diagnose', prescriptionController.diagnose);
+router.get('/history', prescriptionController.getHistory);
+router.delete('/prescriptions/:id', prescriptionController.deletePrescription);
 
 module.exports = router;
