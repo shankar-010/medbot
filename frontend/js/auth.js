@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response.ok) {
           window.location.href = 'index.html';
         } else {
+          console.log('Server error:', data);
           alert(data.error);
         }
       } catch (error) {
