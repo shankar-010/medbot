@@ -40,7 +40,7 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
-
+router.post('/diagnose', authController.diagnose); // Add this line
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 
