@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:5000/api/history', {
+    const response = await fetch('https://medbot-fuyl.onrender.com/api/history', {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });
     const prescriptions = await response.json();
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function deletePrescription(id) {
   try {
-    const response = await fetch(`http://localhost:5000/api/prescriptions/${id}`, {
+    const response = await fetch(`https://medbot-fuyl.onrender.com/api/prescriptions/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });

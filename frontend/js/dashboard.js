@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const diagnosis = document.getElementById('diagnosis').value;
     try {
-      const response = await fetch('http://localhost:5000/api/diagnose', {
+      const response = await fetch('https://medbot-fuyl.onrender.com/api/diagnose', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
