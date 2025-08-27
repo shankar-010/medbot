@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const historyTable = document.getElementById('historyTable');
 
   try {
-    const response = await fetch('http://localhost:5000/api/history', {
+    const response = await fetch('https://medbot-fuyl.onrender.com/api/history', {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });
 
@@ -50,7 +50,7 @@ async function deletePrescription(id) {
   if (!confirm("Are you sure you want to delete this record?")) return;
 
   try {
-    const response = await fetch(`http://localhost:5000/api/prescriptions/${id}`, {
+    const response = await fetch(`https://medbot-fuyl.onrender.com/api/prescriptions/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });
