@@ -41,16 +41,51 @@ const diagnose = async (req, res) => {
     console.log('➡️ Diagnose route hit');
     console.log('User from token:', req.user);
 
-    const { diagnosis } = req.body;
+    // const { diagnosis } = req.body;
+    const { diagnosis, profile } = req.body;
+
     if (!diagnosis) {
       console.log('❌ Diagnosis missing');
       return res.status(400).json({ error: 'Diagnosis is required' });
     }
 
+    // Optional: Validate profile
+    const age = profile?.age || 'unknown';
+    const gender = profile?.gender || 'unknown';
+    const conditions = profile?.conditions || 'none';
+
+  
+
+
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-    const prompt = `You are a medical assistant. Based on the provided diagnosis or symptoms, generate a structured prescription including medicines (name + dosage), precautions, diet plan, and lab tests (if needed). Return the response as valid JSON, e.g., {"medicines":[{"name":"Medicine","dosage":"Dosage"}],"precautions":["Precaution"],"diet":["Diet"],"tests":["Test"]}. Do not include markdown, backticks, or extra text. Diagnosis: ${diagnosis}`;
-    
+    // const prompt = `You are a medical assistant. Based on the provided diagnosis or symptoms, generate a structured prescription including medicines (name + dosage), precautions, diet plan, and lab tests (if needed). Return the response as valid JSON, e.g., {"medicines":[{"name":"Medicine","dosage":"Dosage"}],"precautions":["Precaution"],"diet":["Diet"],"tests":["Test"]}. Do not include markdown, backticks, or extra text. Diagnosis: ${diagnosis}`;
+  const prompt = `You are a medical assistant. Based on the provided diagnosis or symptoms, generate a structured prescription including:
+
+- medicines (with "name", "dosage", and "reason" fields, where "reason" briefly explains why the medicine is prescribed),
+- precautions,
+- diet plan,
+- and lab tests (if needed).
+
+User Profile:
+- Age: ${age}
+- Gender: ${gender}
+- Existing Conditions: ${conditions}
+
+Return the response as valid JSON, e.g.:
+
+{
+  "medicines":[
+    {"name":"Paracetamol","dosage":"500mg twice daily","reason":"Reduces fever and relieves mild pain"},
+    {"name":"Ibuprofen","dosage":"200mg after meals","reason":"Helps reduce inflammation and pain"}
+  ],
+  "precautions":["Precaution"],
+  "diet":["Diet"],
+  "tests":["Test"]
+}
+
+Do not include markdown, backticks, or extra text. Diagnosis: ${diagnosis}`;
+
     console.log('🔍 Sending prompt to Gemini...');
 
     const result = await model.generateContent(prompt);

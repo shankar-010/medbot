@@ -1,12 +1,19 @@
+
 document.addEventListener('DOMContentLoaded', () => {
   if (!localStorage.getItem('token')) {
     window.location.href = 'index.html';
   }
 
   const prescription = JSON.parse(localStorage.getItem('prescription'));
+    const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
   if (!prescription) {
     window.location.href = 'dashboard.html';
   }
+
+  // Populate user profile
+  document.getElementById('profileAge').textContent = userProfile.age || '-';
+  document.getElementById('profileGender').textContent = userProfile.gender || '-';
+  document.getElementById('profileConditions').textContent = userProfile.conditions || '-';
 
   document.getElementById('diagnosis').textContent = prescription.diagnosis;
   const medicines = document.getElementById('medicines');
@@ -14,11 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const diet = document.getElementById('diet');
   const tests = document.getElementById('tests');
 
+  // prescription.prescription.medicines.forEach((med) => {
+  //   const li = document.createElement('li');
+  //   li.textContent = `${med.name} - ${med.dosage}`;
+  //   medicines.appendChild(li);
+  // });
+
   prescription.prescription.medicines.forEach((med) => {
-    const li = document.createElement('li');
-    li.textContent = `${med.name} - ${med.dosage}`;
-    medicines.appendChild(li);
-  });
+  const li = document.createElement('li');
+  li.innerHTML = `<strong>${med.name}</strong> - ${med.dosage} 
+    <br><em>${med.reason || ''}</em>`;   // 👈 Added reason
+  medicines.appendChild(li);
+});
+
+
   prescription.prescription.precautions.forEach((pre) => {
     const li = document.createElement('li');
     li.textContent = pre;
@@ -41,9 +57,16 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.text('MedBot Rx Prescription', 10, 10);
     doc.text(`Diagnosis: ${prescription.diagnosis}`, 10, 20);
     doc.text('Medicines:', 10, 30);
+    // prescription.prescription.medicines.forEach((med, i) => {
+    //   doc.text(`${med.name} - ${med.dosage}`, 10, 40 + i * 10);
+    // });
     prescription.prescription.medicines.forEach((med, i) => {
-      doc.text(`${med.name} - ${med.dosage}`, 10, 40 + i * 10);
-    });
+  doc.text(`${med.name} - ${med.dosage}`, 10, 40 + i * 20);  // more space per item
+  if (med.reason) {
+    doc.text(`Reason: ${med.reason}`, 15, 50 + i * 20); // indent reason
+  }
+});
+
     doc.text('Precautions:', 10, 40 + prescription.prescription.medicines.length * 10);
     prescription.prescription.precautions.forEach((pre, i) => {
       doc.text(pre, 10, 50 + prescription.prescription.medicines.length * 10 + i * 10);
@@ -62,10 +85,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token');
     window.location.href = 'index.html';
-  });
-
-  document.getElementById('toggleDarkMode').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    document.getElementById('toggleDarkMode').textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
   });
 });

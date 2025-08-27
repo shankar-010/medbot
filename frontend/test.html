@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedBot - AI Health Assistant</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    header {
+      background: #007BFF;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header nav a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0px 3px 15px rgba(0,0,0,0.1);
+    }
+
+    .button {
+      padding: 0.8rem 1.5rem;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    .button:hover {
+      background: #0056b3;
+    }
+
+    .profile-section input, 
+    .chat-input {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .chat-container {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 1rem;
+      height: 400px;
+      overflow-y: auto;
+      background: #f9f9f9;
+    }
+
+    .bot-msg {
+      background: #e0f0ff;
+      padding: 0.5rem 1rem;
+      border-radius: 15px;
+      margin: 0.5rem 0;
+      display: inline-block;
+    }
+
+    .user-msg {
+      background: #d1d1d1;
+      padding: 0.5rem 1rem;
+      border-radius: 15px;
+      margin: 0.5rem 0;
+      display: inline-block;
+      float: right;
+      clear: both;
+    }
+
+    .results-card {
+      background: #e6f7ea;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+
+    .step-indicator {
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h2>MedBot</h2>
+    <nav>
+      <a href="#" onclick="showHome()">Home</a>
+      <a href="#" onclick="showProfile()">Profile</a>
+      <a href="#" onclick="showChat()">Chat</a>
+    </nav>
+  </header>
+
+  <div class="container" id="main-container">
+
+    <!-- Home Page -->
+    <div id="home-page">
+      <h2>Welcome to MedBot AI Health Assistant</h2>
+      <p>Enter your symptoms and get AI-based medical suggestions.</p>
+      <button class="button" onclick="showProfile()">Start</button>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profile-page" style="display:none;">
+      <h2>User Profile</h2>
+      <div class="profile-section">
+        <input type="text" id="name" placeholder="Name">
+        <input type="number" id="age" placeholder="Age">
+        <select id="gender">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" id="conditions" placeholder="Existing Conditions (comma separated)">
+        <button class="button" onclick="saveProfile()">Save & Continue</button>
+      </div>
+    </div>
+
+    <!-- Chat Page -->
+    <div id="chat-page" style="display:none;">
+      <h2>Symptom Checker</h2>
+      <div class="step-indicator" id="step">Question 1/6</div>
+      <div class="chat-container" id="chat-container"></div>
+      <input type="text" id="chat-input" class="chat-input" placeholder="Type your answer here">
+      <button class="button" onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- Results Page -->
+    <div id="results-page" style="display:none;">
+      <h2>Results</h2>
+      <div class="results-card">
+        <h3>Condition: Flu</h3>
+        <p>Severity: Medium</p>
+        <p>Action: Rest and drink fluids. Consult doctor if symptoms persist.</p>
+      </div>
+      <div class="results-card">
+        <h3>Condition: Common Cold</h3>
+        <p>Severity: Low</p>
+        <p>Action: Take OTC medications. Monitor symptoms.</p>
+      </div>
+      <button class="button" onclick="showHome()">Check Again</button>
+    </div>
+
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 6;
+    const chatContainer = document.getElementById('chat-container');
+
+    function showHome() {
+      hideAll();
+      document.getElementById('home-page').style.display = 'block';
+    }
+
+    function showProfile() {
+      hideAll();
+      document.getElementById('profile-page').style.display = 'block';
+    }
+
+    function showChat() {
+      hideAll();
+      document.getElementById('chat-page').style.display = 'block';
+      addBotMessage("Please describe your main symptom.");
+    }
+
+    function showResults() {
+      hideAll();
+      document.getElementById('results-page').style.display = 'block';
+    }
+
+    function hideAll() {
+      document.getElementById('home-page').style.display = 'none';
+      document.getElementById('profile-page').style.display = 'none';
+      document.getElementById('chat-page').style.display = 'none';
+      document.getElementById('results-page').style.display = 'none';
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const gender = document.getElementById('gender').value;
+      const conditions = document.getElementById('conditions').value;
+
+      if(!name || !age || !gender) {
+        alert("Please fill all required fields!");
+        return;
+      }
+
+      showChat();
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const msg = input.value.trim();
+      if(!msg) return;
+
+      addUserMessage(msg);
+      input.value = '';
+
+      // Simulate bot response
+      if(currentStep < totalSteps){
+        currentStep++;
+        document.getElementById('step').innerText = `Question ${currentStep}/${totalSteps}`;
+        addBotMessage(`Bot Question ${currentStep}: ...`);
+      } else {
+        showResults();
+      }
+    }
+
+    function addBotMessage(msg) {
+      const div = document.createElement('div');
+      div.className = 'bot-msg';
+      div.innerText = msg;
+      chatContainer.appendChild(div);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function addUserMessage(msg) {
+      const div = document.createElement('div');
+      div.className = 'user-msg';
+      div.innerText = msg;
+      chatContainer.appendChild(div);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>

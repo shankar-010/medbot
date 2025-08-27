@@ -9,24 +9,34 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><i class="fas fa-stethoscope"></i>MedBot Rx</a>
+      <a class="navbar-brand" href="#"><i class="fas fa-stethoscope"></i> MedBot Rx</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" id="profileLink"><i class="fas fa-user-circle"></i> Profile</a></li>
           <li class="nav-item"><a class="nav-link" href="#" id="logout">Logout</a></li>
           <li class="nav-item"><a class="nav-link" href="#" id="toggleDarkMode">Dark Mode</a></li>
         </ul>
       </div>
     </div>
   </nav>
-  <div class="container mt-5">
+
+  <div class="container mt-5 pt-5">
     <h1 class="text-center">Enter Symptoms or Diagnosis</h1>
-    <div class="row justify-content-center">
+
+    <!-- Alert if profile not filled -->
+    <div id="profileAlert" class="alert alert-info text-center mt-3" role="alert" style="display: none;">
+      To get a precise prescription, please complete your <strong>profile</strong> <i class="fas fa-arrow-up"></i>.
+    </div>
+
+    <!-- Symptoms Form -->
+    <div class="row justify-content-center mt-3">
       <div class="col-md-8">
         <div class="card">
           <div class="card-body">
@@ -42,7 +52,60 @@
       </div>
     </div>
   </div>
+
+  <!-- Profile Modal -->
+  <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="profileModalLabel"><i class="fas fa-user-circle"></i> User Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="profileForm">
+            <div class="mb-3">
+              <label for="age" class="form-label">Age</label>
+              <input type="number" class="form-control" id="age" placeholder="Enter your age" required>
+            </div>
+            <div class="mb-3">
+              <label for="gender" class="form-label">Gender</label>
+              <select class="form-control" id="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="conditions" class="form-label">Existing Conditions</label>
+              <textarea class="form-control" id="conditions" rows="2" placeholder="e.g., Diabetes, Hypertension"></textarea>
+            </div>
+            <button type="button" class="btn btn-success w-100" id="saveProfile">Save Profile</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div id="loader" style="
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  ">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/dashboard.js"></script>
+  <script src="js/theme.js"></script>
+  
 </body>
 </html>

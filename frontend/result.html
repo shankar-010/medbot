@@ -26,6 +26,17 @@
   </nav>
   <div class="container mt-5">
     <h1 class="text-center">Your Prescription</h1>
+
+    <!-- User Profile -->
+    <div class="card mb-4 border-info">
+      <div class="card-body">
+        <h5 class="card-title text-info"><i class="fas fa-user-circle"></i> Your Profile</h5>
+        <p><strong>Age:</strong> <span id="profileAge"></span></p>
+        <p><strong>Gender:</strong> <span id="profileGender"></span></p>
+        <p><strong>Existing Conditions:</strong> <span id="profileConditions"></span></p>
+      </div>
+    </div>
+    
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
@@ -48,6 +59,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="js/result.js"></script>
+  <script src="js/theme.js"></script>
 </body>
 </html>
 
