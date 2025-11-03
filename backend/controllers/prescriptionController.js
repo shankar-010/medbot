@@ -57,7 +57,7 @@ const diagnose = async (req, res) => {
   
 
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro-latest' });
+    const model = genAI.getGenerativeModel({ model: 'gemini‑2.5‑flash' });
 
     // const prompt = `You are a medical assistant. Based on the provided diagnosis or symptoms, generate a structured prescription including medicines (name + dosage), precautions, diet plan, and lab tests (if needed). Return the response as valid JSON, e.g., {"medicines":[{"name":"Medicine","dosage":"Dosage"}],"precautions":["Precaution"],"diet":["Diet"],"tests":["Test"]}. Do not include markdown, backticks, or extra text. Diagnosis: ${diagnosis}`;
   const prompt = `You are a medical assistant. Based on the provided diagnosis or symptoms, generate a structured prescription including:
